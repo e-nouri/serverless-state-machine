@@ -110,7 +110,7 @@ functions:
 stepFunctions:
   stateMachines:
     closeOrderDelayedFunc:
-      dependsOn: CloseOrderLambdaFunction
+      dependsOn: HelloLambdaFunction
       name: CloseOrder
       id: CloseOrderStateMachine
       definition:
