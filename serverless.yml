@@ -22,6 +22,7 @@ service: test-sm # NOTE: update this with your service name
 provider:
   name: aws
   runtime: nodejs10.x
+  region: eu-west-1
   profile: nourix2
 # you can overwrite defaults here
 #  stage: dev
@@ -109,6 +110,7 @@ functions:
 stepFunctions:
   stateMachines:
     closeOrderDelayedFunc:
+      dependsOn: CloseOrderLambdaFunction
       name: CloseOrder
       id: CloseOrderStateMachine
       definition:
@@ -124,10 +126,15 @@ stepFunctions:
             Resource: "arn:aws:states:::lambda:invoke"
             Parameters:
               FunctionName:
-                'Fn::GetAtt': [HelloLambdaFunction, Arn]
+                Fn::GetAtt: [HelloLambdaFunction, Arn]
               Payload:
                 "Input.$": "$.lambda_payload"
             End: true
+
+Outputs:
+  CloseOrderStateMachine:
+    Value:
+      Ref: CloseOrderStateMachine
 
 plugins:
   - serverless-step-functions
