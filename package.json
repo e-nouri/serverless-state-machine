@@ -1,0 +1,9 @@
+{
+  "name": "serverless-state-machine",
+  "version": "1.0.0",
+  "main": "handler.js",
+  "license": "MIT",
+  "dependencies": {
+    "serverless-step-functions": "^2.1.0"
+  }
+}
